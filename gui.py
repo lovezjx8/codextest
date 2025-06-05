@@ -1,9 +1,10 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 from todo import (
     add_task,
     complete_task,
     delete_tasks,
+    edit_task,
     clear_tasks,
     get_tasks,
 )
@@ -39,6 +40,22 @@ def on_delete(listbox: tk.Listbox):
     refresh_tasks(listbox)
 
 
+def on_edit(listbox: tk.Listbox):
+    indices = listbox.curselection()
+    if len(indices) != 1:
+        messagebox.showwarning("Select one", "Please select a single task to edit")
+        return
+    idx = indices[0]
+    current = get_tasks()[idx].get("description", "")
+    new_desc = simpledialog.askstring("Edit Task", "Update task description", initialvalue=current)
+    if new_desc is None:
+        return
+    new_desc = new_desc.strip()
+    if new_desc:
+        edit_task(idx, new_desc)
+        refresh_tasks(listbox)
+
+
 def on_clear(listbox: tk.Listbox):
     if messagebox.askyesno("Clear all", "Delete all tasks?"):
         clear_tasks()
@@ -60,28 +77,35 @@ def main():
 
     add_button = tk.Button(
         frame,
-        text="Add",
+        text="添加",
         command=lambda: on_add(entry, listbox)
     )
     add_button.pack(side=tk.LEFT, padx=(5, 0))
 
     complete_button = tk.Button(
         frame,
-        text="Complete",
+        text="完成",
         command=lambda: on_complete(listbox)
     )
     complete_button.pack(side=tk.LEFT, padx=(5, 0))
 
     delete_button = tk.Button(
         frame,
-        text="Delete",
+        text="删除",
         command=lambda: on_delete(listbox)
     )
     delete_button.pack(side=tk.LEFT, padx=(5, 0))
 
+    edit_button = tk.Button(
+        frame,
+        text="编辑",
+        command=lambda: on_edit(listbox)
+    )
+    edit_button.pack(side=tk.LEFT, padx=(5, 0))
+
     clear_button = tk.Button(
         frame,
-        text="Clear All",
+        text="清空",
         command=lambda: on_clear(listbox)
     )
     clear_button.pack(side=tk.LEFT, padx=(5, 0))

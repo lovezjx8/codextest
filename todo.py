@@ -50,6 +50,14 @@ def complete_task(index: int):
         save_tasks(tasks)
 
 
+def edit_task(index: int, description: str):
+    """Update the description of a task by index."""
+    tasks = load_tasks()
+    if 0 <= index < len(tasks):
+        tasks[index]['description'] = description
+        save_tasks(tasks)
+
+
 def delete_tasks(indices):
     """Delete tasks by a list of zero-based indices."""
     tasks = load_tasks()

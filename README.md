@@ -30,6 +30,12 @@ python3 main.py delete 1 2 3   # delete tasks 1, 2 and 3
 python3 main.py delete all     # delete all tasks
 ```
 
+Edit an existing task:
+
+```bash
+python3 main.py edit 2 "Updated text"  # edit task 2
+```
+
 ## GUI
 
 Run the graphical interface:
@@ -38,5 +44,5 @@ Run the graphical interface:
 python3 gui.py
 ```
 
-In the window you can select tasks and use the **Complete**, **Delete** or
-**Clear All** buttons to update the list.
+In the window you can select tasks and use the **完成**, **删除**, **编辑**, or
+**清空** buttons to update the list.

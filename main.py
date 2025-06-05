@@ -5,6 +5,7 @@ from todo import (
     complete_task,
     delete_tasks,
     clear_tasks,
+    edit_task,
 )
 from gui import main as gui_main
 
@@ -24,6 +25,10 @@ def main():
     del_parser = subparsers.add_parser('delete', help='Delete tasks')
     del_parser.add_argument('indices', nargs='+', help='Task numbers or "all"')
 
+    edit_parser = subparsers.add_parser('edit', help='Edit an existing task')
+    edit_parser.add_argument('index', type=int, help='Task number (1-based)')
+    edit_parser.add_argument('description', help='New task description')
+
     subparsers.add_parser('gui', help='Launch the graphical interface')
 
     args = parser.parse_args()
@@ -39,6 +44,8 @@ def main():
             clear_tasks()
         else:
             delete_tasks([int(i) - 1 for i in args.indices])
+    elif args.command == 'edit':
+        edit_task(args.index - 1, args.description)
     elif args.command == 'gui' or args.command is None:
         gui_main()
     else:
