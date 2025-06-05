@@ -1,5 +1,6 @@
 import argparse
 from todo import add_task, list_tasks
+from gui import main as gui_main
 
 
 def main():
@@ -10,6 +11,7 @@ def main():
     add_parser.add_argument('task', help='Task description')
 
     subparsers.add_parser('list', help='List tasks')
+    subparsers.add_parser('gui', help='Launch the graphical interface')
 
     args = parser.parse_args()
 
@@ -17,6 +19,8 @@ def main():
         add_task(args.task)
     elif args.command == 'list':
         list_tasks()
+    elif args.command == 'gui' or args.command is None:
+        gui_main()
     else:
         parser.print_help()
 

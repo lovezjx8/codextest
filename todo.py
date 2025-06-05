@@ -18,7 +18,13 @@ def add_task(task):
     tasks.append(task)
     save_tasks(tasks)
 
+def get_tasks():
+    """Return the list of tasks from the data file."""
+    return load_tasks()
+
+
 def list_tasks():
-    tasks = load_tasks()
+    """Print the list of saved tasks to the console."""
+    tasks = get_tasks()
     for i, task in enumerate(tasks, 1):
         print(f"{i}. {task}")
