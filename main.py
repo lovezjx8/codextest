@@ -1,5 +1,11 @@
 import argparse
-from todo import add_task, list_tasks
+from todo import (
+    add_task,
+    list_tasks,
+    complete_task,
+    delete_tasks,
+    clear_tasks,
+)
 from gui import main as gui_main
 
 
@@ -11,6 +17,13 @@ def main():
     add_parser.add_argument('task', help='Task description')
 
     subparsers.add_parser('list', help='List tasks')
+
+    done_parser = subparsers.add_parser('done', help='Mark a task as completed')
+    done_parser.add_argument('index', type=int, help='Task number (1-based)')
+
+    del_parser = subparsers.add_parser('delete', help='Delete tasks')
+    del_parser.add_argument('indices', nargs='+', help='Task numbers or "all"')
+
     subparsers.add_parser('gui', help='Launch the graphical interface')
 
     args = parser.parse_args()
@@ -19,6 +32,13 @@ def main():
         add_task(args.task)
     elif args.command == 'list':
         list_tasks()
+    elif args.command == 'done':
+        complete_task(args.index - 1)
+    elif args.command == 'delete':
+        if len(args.indices) == 1 and args.indices[0].lower() == 'all':
+            clear_tasks()
+        else:
+            delete_tasks([int(i) - 1 for i in args.indices])
     elif args.command == 'gui' or args.command is None:
         gui_main()
     else:

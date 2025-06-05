@@ -17,6 +17,19 @@ List tasks:
 python3 main.py list
 ```
 
+Mark task as completed:
+
+```bash
+python3 main.py done 1
+```
+
+Delete a task (or all tasks):
+
+```bash
+python3 main.py delete 1 2 3   # delete tasks 1, 2 and 3
+python3 main.py delete all     # delete all tasks
+```
+
 ## GUI
 
 Run the graphical interface:
@@ -24,3 +37,6 @@ Run the graphical interface:
 ```bash
 python3 gui.py
 ```
+
+In the window you can select tasks and use the **Complete**, **Delete** or
+**Clear All** buttons to update the list.
