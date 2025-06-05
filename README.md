@@ -1,7 +1,17 @@
 # codextest
 
-This repository contains simple example code.
+This repository contains a simple todo CLI example.
 
-## hello.py
+## Usage
 
-Run `python3 hello.py` and click the button to see a Hello popup.
+Add a task:
+
+```bash
+python3 main.py add "My task"
+```
+
+List tasks:
+
+```bash
+python3 main.py list
+```
